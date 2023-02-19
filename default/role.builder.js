@@ -41,7 +41,7 @@ var roleBuilder = {
             if(targets.length) {
                 delete creep.memory.tempJob
                 if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#FF0040'}});
                 }
             }else if(!creep.memory.tempJob){
                 if(rand == 0){
