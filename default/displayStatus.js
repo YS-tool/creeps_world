@@ -17,6 +17,13 @@ let displayStatus = {
             console.log("Energy capacity is " + spawn.room.energyCapacityAvailable)
             console.log("current energy is " + spawn.room.energyAvailable)
             let roomName = spawn.room.name;
+            let container = spawn.room.find(FIND_STRUCTURES,{
+                filter:(structure)=>{
+                    return (structure.structureType == STRUCTURE_CONTAINER)
+                }})
+            if(container.length>0){
+                Memory.containerUnlocked = true;
+            }
             console.log("Room name is " + roomName)
         }
         let har = 0;
