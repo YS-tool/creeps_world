@@ -14,7 +14,7 @@ let roleBuilder = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-        
+
         // rand 2 because 2 temp job
         let rand = Math.floor(Math.random() * 2);
         let index = creep.name.split("-")[1];
@@ -51,7 +51,17 @@ let roleBuilder = {
             }
 	    }
 	    else {
-            roleHarvester.run(creep);
+            let container = creep.room.find(FIND_STRUCTURES,{
+                filter:(structure)=>{
+                    return (structure.structureType == STRUCTURE_CONTAINER && 
+                        structure.store.getUsedCapacity()>0)
+                }})
+            if(container.length>0){
+                // console.log("withdraw from container")
+                if(creep.withdraw(container[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(container[0]);
+                }
+            }
 	    }
 	}
 };
