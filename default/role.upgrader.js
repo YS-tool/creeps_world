@@ -6,6 +6,7 @@
  * var mod = require('role.upgrader');
  * mod.thing == 'a thing'; // true
  */
+var roleHarvester = require('role.harvester');
 
 var roleUpgrader = {
 
@@ -25,16 +26,12 @@ var roleUpgrader = {
             creep.say('upgrade');
         }
         
-        var sources = creep.room.find(FIND_SOURCES_ACTIVE);
-        
         if(creep.memory.upgrading){
             if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.room.controller);
+                creep.moveTo(creep.room.controller,{visualizePathStyle: {stroke: '#FF0040'}});
             }
         }else {
-            if(creep.harvest(sources[index]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[index],{visualizePathStyle: {stroke: '#E81E1E'}});
-            }
+            roleHarvester.run(creep);
         }
 
 	}

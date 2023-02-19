@@ -22,12 +22,12 @@ var rolecleanUp = {
             if(ruinList.length>0){
                 index = parseInt(index)%(ruinList.length)
                 if(creep.withdraw(ruinList[index],RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(ruinList[index], {visualizePathStyle: {stroke: '#E81E1E'}});
+                    creep.moveTo(ruinList[index], {visualizePathStyle: {stroke: '#FFFFFF'}});
                 }
             }else if(dropList.length>0){
                 index = parseInt(index)%(dropList.length)
                 if(creep.pickup(dropList[index],RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(dropList[index], {visualizePathStyle: {stroke: '#E81E1E'}});
+                    creep.moveTo(dropList[index], {visualizePathStyle: {stroke: '#FFFFFF'}});
                 }
             }else{
                 roleHarvester.run(creep);
@@ -43,7 +43,7 @@ var rolecleanUp = {
             // console.log(targets)
             if(targets.length > 0) {
                 if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#FF0040'}});
                 }
             }
         }
