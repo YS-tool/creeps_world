@@ -3,13 +3,13 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('GC');
+ * let mod = require('GC');
  * mod.thing == 'a thing'; // true
  */
 
-var gc = {
+let gc = {
     removeDeadCreep : function(){
-        for(var i in Memory.creeps) {
+        for(let i in Memory.creeps) {
             if(!Game.creeps[i]) {
                 delete Memory.creeps[i];
             }
