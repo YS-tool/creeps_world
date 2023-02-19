@@ -31,7 +31,22 @@ let roleUpgrader = {
                 creep.moveTo(creep.room.controller,{visualizePathStyle: {stroke: '#FF0040'}});
             }
         }else {
-            roleHarvester.run(creep);
+
+            if(Memory.containerUnlocked){
+                let container = creep.room.find(FIND_STRUCTURES,{
+                    filter:(structure)=>{
+                        return (structure.structureType == STRUCTURE_CONTAINER && 
+                            structure.store.getUsedCapacity()>0)
+                    }})
+                if(container.length>0){
+                    // console.log("withdraw from container")
+                    if(creep.withdraw(container[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(container[0]);
+                    }
+                }
+            }else{
+                roleHarvester.run(creep);
+            }
         }
 
 	}
