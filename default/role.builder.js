@@ -19,7 +19,6 @@ let roleBuilder = {
         let rand = Math.floor(Math.random() * 2);
         let index = creep.name.split("-")[1];
         index = parseInt(index)%(creep.room.find(FIND_SOURCES_ACTIVE).length)
-        
 
 	    if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.building = false;
@@ -37,11 +36,11 @@ let roleBuilder = {
 	    }
 
 	    if(creep.memory.building) {
-	        let targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if(targets.length) {
+	        let targets = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+            if(targets) {
                 delete creep.memory.tempJob
-                if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#FF0040'}});
+                if(creep.build(targets) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targets, {visualizePathStyle: {stroke: '#FF0040'}});
                 }
             }else if(!creep.memory.tempJob){
                 if(rand == 0){

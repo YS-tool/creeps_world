@@ -14,11 +14,22 @@ let roleHarvester = {
         
         let index = creep.name.split("-")[1];
         index = parseInt(index)%(creep.room.find(FIND_SOURCES_ACTIVE).length)
+
+        if(!creep.memory.harvesting && creep.store[RESOURCE_ENERGY] == 0) {
+            creep.memory.harvesting = true;
+            creep.say('🔄 harvest');
+	    }
+
+        if(creep.memory.harvesting && creep.store.getFreeCapacity() == 0) {
+	        creep.memory.harvesting = false;
+	        creep.say('transfering');
+	    }
         
-        if(creep.store.getFreeCapacity() > 0) {
-            let sources = creep.room.find(FIND_SOURCES_ACTIVE);
-            if(creep.harvest(sources[index]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[index], {visualizePathStyle: {stroke: '#FFFFFF'}});
+        if(creep.memory.harvesting) {
+            let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
+
+            if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
             }
         } else {
             let targets = creep.room.find(FIND_STRUCTURES, {
