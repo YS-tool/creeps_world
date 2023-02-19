@@ -53,9 +53,9 @@ let rolecleanUp = {
 function getRuinList(creep){
     let sources = creep.room.find(FIND_RUINS);
     let list=[];
-    for(name in sources){
-        if(sources[name].store[RESOURCE_ENERGY]>0){
-            list.push(sources[name])
+    for(key in sources){
+        if(sources[key].store[RESOURCE_ENERGY]>0){
+            list.push(sources[key])
         }
     }
     return list;
@@ -64,9 +64,9 @@ function getRuinList(creep){
 function getDropList(creep){
     let sources = creep.room.find(FIND_DROPPED_RESOURCES);
     let list=[];
-    for(name in sources){
-        if(sources[name].amount>0){
-            list.push(sources[name])
+    for(key in sources){
+        if(sources[key].amount>0){
+            list.push(sources[key])
         }
     }
     return list;
