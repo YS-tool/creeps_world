@@ -28,7 +28,7 @@ module.exports.loop = function () {
             if(!spawn.room.controller || !spawn.room.controller.my){
                 continue;
             }
-            if(spawnNew.run(spawn, count)==0){
+            if(Object.keys(Memory.creeps).length<=30 && spawnNew.run(spawn, count)==0){
                 count++;
                 tick = 0;
             }
