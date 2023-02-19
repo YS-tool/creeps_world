@@ -34,9 +34,9 @@ let displayStatus = {
                 bud++;
             }
         }
-        console.log("there are " + har + " harvester")
-        console.log("there are " + upg + " upgader")
-        console.log("there are " + bud + " builder")
+        console.log("there are " + har + " harvester\n" + 
+                    "there are " + upg + " upgader\n" +
+                    "there are " + bud + " builder\n")
 
         returnArr.push(har)
         returnArr.push(upg)
