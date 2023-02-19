@@ -5,9 +5,7 @@ let spawnNew = require('spawnNew')
 let gc = require('GC')
 let showLog = require('displayStatus')
 
-gc.removeDeadCreep()
 var creepStatus = showLog.run()
-
 
 let count = 0;
 let tick = 0;
@@ -23,7 +21,7 @@ count = count+1
 
 module.exports.loop = function () {
     // respone new creep section
-    if(tick>100){
+    if(tick>1){
         for(const key in Game.spawns){
             // console.log(key)
             const spawn = Game.spawns[key];
@@ -33,6 +31,7 @@ module.exports.loop = function () {
             if(Object.keys(Memory.creeps).length<=30 && spawnNew.run(spawn, count,creepStatus)==0){
                 count++;
                 tick = 0;
+                gc.removeDeadCreep()
             }
         }
     }
