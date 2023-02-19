@@ -3,17 +3,17 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('role.upgrader');
+ * let mod = require('role.upgrader');
  * mod.thing == 'a thing'; // true
  */
-var roleHarvester = require('role.harvester');
+let roleHarvester = require('role.harvester');
 
-var roleUpgrader = {
+let roleUpgrader = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
         
-        var index = creep.name.split("-")[1];
+        let index = creep.name.split("-")[1];
         index = parseInt(index)%(creep.room.find(FIND_SOURCES_ACTIVE).length)
         
         if(creep.store[RESOURCE_ENERGY] == 0 && creep.memory.upgrading) {

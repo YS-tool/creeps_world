@@ -3,25 +3,25 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('role.harvester');
+ * let mod = require('role.harvester');
  * mod.thing == 'a thing'; // true
  */
 
-var roleHarvester = {
+let roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
         
-        var index = creep.name.split("-")[1];
+        let index = creep.name.split("-")[1];
         index = parseInt(index)%(creep.room.find(FIND_SOURCES_ACTIVE).length)
         
         if(creep.store.getFreeCapacity() > 0) {
-            var sources = creep.room.find(FIND_SOURCES_ACTIVE);
+            let sources = creep.room.find(FIND_SOURCES_ACTIVE);
             if(creep.harvest(sources[index]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources[index], {visualizePathStyle: {stroke: '#FFFFFF'}});
             }
         } else {
-            var targets = creep.room.find(FIND_STRUCTURES, {
+            let targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || 
                                 structure.structureType == STRUCTURE_SPAWN ||

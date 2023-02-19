@@ -3,21 +3,21 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('role.harvester');
+ * let mod = require('role.harvester');
  * mod.thing == 'a thing'; // true
  */
-var roleHarvester = require('role.harvester');
+let roleHarvester = require('role.harvester');
 
-var rolecleanUp = {
+let rolecleanUp = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
         
         if(creep.store.getFreeCapacity() > 0) {
             
-            var index = creep.name.split("-")[1];
-            var ruinList = getRuinList(creep)
-            var dropList = getDropList(creep)
+            let index = creep.name.split("-")[1];
+            let ruinList = getRuinList(creep)
+            let dropList = getDropList(creep)
             
             if(ruinList.length>0){
                 index = parseInt(index)%(ruinList.length)
@@ -34,7 +34,7 @@ var rolecleanUp = {
             }
         }
         else {
-            var targets = creep.room.find(FIND_STRUCTURES, {
+            let targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
                             structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
@@ -51,8 +51,8 @@ var rolecleanUp = {
 };
 
 function getRuinList(creep){
-    var sources = creep.room.find(FIND_RUINS);
-    var list=[];
+    let sources = creep.room.find(FIND_RUINS);
+    let list=[];
     for(name in sources){
         if(sources[name].store[RESOURCE_ENERGY]>0){
             list.push(sources[name])
@@ -62,8 +62,8 @@ function getRuinList(creep){
 }
 
 function getDropList(creep){
-    var sources = creep.room.find(FIND_DROPPED_RESOURCES);
-    var list=[];
+    let sources = creep.room.find(FIND_DROPPED_RESOURCES);
+    let list=[];
     for(name in sources){
         if(sources[name].amount>0){
             list.push(sources[name])
