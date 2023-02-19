@@ -9,11 +9,14 @@
  
  
 let spawnNew = {
-    run: function(spawn, num){
+    run: function(spawn, num, creepStatus){
         // console.log("inside spawnNew")
         // console.log(num)
         let role;
-        if(num%3==0){
+
+        if(creepStatus[0]<5){
+            role = "harvester"
+        }else if(num%3==0){
             role = "harvester"
         }else if (num%3==1){
             role = "upgrader"
@@ -22,11 +25,12 @@ let spawnNew = {
         }
 
         if(spawn.room.energyAvailable >=500 && spawn.room.energyCapacityAvailable == 550 ){
+            console.log("spawn big creep")
             return spawn.spawnCreep( [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE], role +"-"+ num,{
                 memory:{role:role}
             } );
-        }else if (spawn.room.energyAvailable>=300 && spawn.room.energyCapacityAvailable <=550){
-            // console.log("else if")
+        }else if (spawn.room.energyAvailable>=300 && spawn.room.energyCapacityAvailable <550){
+            console.log("spawn small creep")
             let a= spawn.spawnCreep( [WORK,WORK,CARRY,MOVE], role +"-"+ num,{
                 memory:{role:role}
             } );
