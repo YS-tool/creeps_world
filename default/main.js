@@ -28,7 +28,7 @@ module.exports.loop = function () {
             if(!spawn.room.controller || !spawn.room.controller.my){
                 continue;
             }
-            if(Object.keys(Memory.creeps).length<=30 && spawnNew.run(spawn, count,creepStatus)==0){
+            if(Object.keys(Memory.creeps).length<=100 && spawnNew.run(spawn, count,creepStatus)==0){
                 count++;
                 tick = 0;
                 gc.removeDeadCreep()
@@ -41,14 +41,14 @@ module.exports.loop = function () {
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
+            roleHarvester.run(creep, creepStatus[0]);
         }
         if(creep.memory.role == 'upgrader') {
             // creep.memory.role = 'harvester'
             roleUpgrader.run(creep);
         }
         if(creep.memory.role == 'builder') {
-            // creep.memory.role = 'harvester'
+            // creep.memory.role = 'upgrader'
             roleBuilder.run(creep);
         }
     }
