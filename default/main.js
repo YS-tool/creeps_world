@@ -8,29 +8,20 @@ let tower = require('tower')
 
 var creepStatus = showLog.run()
 
-let count = 0;
 let tick = 0;
 
-for(let name in Game.creeps) {
-    let index = name.split("-")[1];
-    index = parseInt(index)
-    if(index>count){
-        count = index
-    }
-}
-count = count+1
+// Memory.creepIndex = 0
 
 module.exports.loop = function () {
     // respone new creep section
-    if(tick>1){
+    if(tick>100){
         for(const key in Game.spawns){
-            // console.log(key)
             const spawn = Game.spawns[key];
             if(!spawn.room.controller || !spawn.room.controller.my){
                 continue;
             }
-            if(Object.keys(Memory.creeps).length<=100 && spawnNew.run(spawn, count,creepStatus)==0){
-                count++;
+            if(spawnNew.run(spawn, Memory.creepIndex,creepStatus)==0){
+                Memory.creepIndex = Memory.creepIndex+1
                 tick = 0;
                 gc.removeDeadCreep()
             }
