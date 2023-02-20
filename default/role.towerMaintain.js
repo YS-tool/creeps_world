@@ -10,11 +10,11 @@
 var maintainTower = {
     run : function(creep, tower){
 
-        if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
+        if(creep.memory.towerMaintain && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.towerMaintain = false;
             creep.say('🔄 harvest');
         }
-        if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
+        if(!creep.memory.towerMaintain && creep.store.getFreeCapacity() == 0) {
             creep.memory.towerMaintain = true;
             creep.say('🚧 build');
         }
