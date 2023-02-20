@@ -13,18 +13,23 @@ let displayStatus = {
         let returnArr = []
         for(const key in Game.spawns){
             const spawn = Game.spawns[key];
-            console.log("For spawn " + key)
-            console.log("Energy capacity is " + spawn.room.energyCapacityAvailable)
-            console.log("current energy is " + spawn.room.energyAvailable)
             let roomName = spawn.room.name;
+
+            console.log("Spawn " + key+ " is in " + roomName +
+                        "\nEnergy capacity is " + spawn.room.energyCapacityAvailable +
+                        "\ncurrent energy is " + spawn.room.energyAvailable)
+
             let container = spawn.room.find(FIND_STRUCTURES,{
                 filter:(structure)=>{
                     return (structure.structureType == STRUCTURE_CONTAINER)
                 }})
             if(container.length>0){
+                console.log("container exist")
                 Memory.containerUnlocked = true;
+            }else{
+                console.log("there is no container")
+                Memory.containerUnlocked = false;
             }
-            console.log("Room name is " + roomName)
         }
         let har = 0;
         let upg = 0;
