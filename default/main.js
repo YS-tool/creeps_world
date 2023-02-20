@@ -2,7 +2,7 @@ let roleHarvester = require('role.harvester');
 let roleUpgrader = require('role.upgrader');
 let roleBuilder = require('role.builder');
 let spawnNew = require('spawnNew')
-let gc = require('GC')
+let gc = require('helper.gc')
 let showLog = require('displayStatus')
 let tower = require('tower')
 
