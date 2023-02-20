@@ -4,10 +4,9 @@ let roleBuilder = require('role.builder');
 let spawnNew = require('spawnNew')
 let gc = require('GC')
 let showLog = require('displayStatus')
+let tower = require('tower')
 
-gc.removeDeadCreep()
 var creepStatus = showLog.run()
-
 
 let count = 0;
 let tick = 0;
@@ -23,17 +22,26 @@ count = count+1
 
 module.exports.loop = function () {
     // respone new creep section
-    if(tick>10){
+    if(tick>1){
         for(const key in Game.spawns){
             // console.log(key)
             const spawn = Game.spawns[key];
             if(!spawn.room.controller || !spawn.room.controller.my){
                 continue;
             }
-            if(spawnNew.run(spawn, count, creepStatus)==0){
+            if(Object.keys(Memory.creeps).length<=100 && spawnNew.run(spawn, count,creepStatus)==0){
                 count++;
                 tick = 0;
+                gc.removeDeadCreep()
             }
+        }
+    }
+
+    // tower behavior
+
+    for(let name in Game.structures){
+        if(Game.structures[name].structureType==STRUCTURE_TOWER){
+            tower.run(Game.structures[name])
         }
     }
 
@@ -42,14 +50,14 @@ module.exports.loop = function () {
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
+            roleHarvester.run(creep, creepStatus[0]);
         }
         if(creep.memory.role == 'upgrader') {
             // creep.memory.role = 'harvester'
             roleUpgrader.run(creep);
         }
         if(creep.memory.role == 'builder') {
-            // creep.memory.role = 'harvester'
+            // creep.memory.role = 'upgrader'
             roleBuilder.run(creep);
         }
     }
