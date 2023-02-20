@@ -13,6 +13,10 @@ let spawnNew = {
         // console.log("inside spawnNew")
         // console.log(num)
         let role;
+        // let numOfRole = 3;
+        // if (spawn.room.find(FIND_MY_CONSTRUCTION_SITES).length){
+        //     numOfRole = 2;
+        // }
 
         if(creepStatus[0]<5){
             role = "harvester"

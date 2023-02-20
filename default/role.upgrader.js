@@ -13,9 +13,6 @@ let roleUpgrader = {
     /** @param {Creep} creep **/
     run: function(creep) {
         
-        let index = creep.name.split("-")[1];
-        index = parseInt(index)%(creep.room.find(FIND_SOURCES_ACTIVE).length)
-        
         if(creep.store[RESOURCE_ENERGY] == 0 && creep.memory.upgrading) {
             creep.memory.upgrading = false;
             creep.say('🔄 harvest');
