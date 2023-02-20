@@ -45,6 +45,11 @@ let roleBuilder = {
                     if(creep.withdraw(container[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         creep.moveTo(container[0]);
                     }
+                }else {
+                    let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
+                    if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
+                    }
                 }
             }
         }else{

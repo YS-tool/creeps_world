@@ -11,8 +11,6 @@ let roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep, howManyHarvester) {
-        let index = creep.name.split("-")[1];
-        index = parseInt(index)%(creep.room.find(FIND_SOURCES_ACTIVE).length)
 
         // state switch
         if(!creep.memory.harvesting && creep.store[RESOURCE_ENERGY] == 0) {
@@ -26,6 +24,7 @@ let roleHarvester = {
         
         // find source transfer to spawn, extension, container
         // when harvesting < 5, spawn and extension only
+        // find closest target
         if(creep.memory.harvesting) {
             let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
             if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
@@ -34,7 +33,7 @@ let roleHarvester = {
         } else {
             let targets;
             if(howManyHarvester<5){
-                targets = creep.room.find(FIND_STRUCTURES, {
+                targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || 
                                 structure.structureType == STRUCTURE_SPAWN ) &&
@@ -42,7 +41,7 @@ let roleHarvester = {
                     }
                 });
             }else{
-                targets = creep.room.find(FIND_STRUCTURES, {
+                targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || 
                                 structure.structureType == STRUCTURE_SPAWN ||
@@ -51,10 +50,8 @@ let roleHarvester = {
                     }
                 });  
             }
-            if(targets.length > 0) {
-                if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#FF0040'}});
-                }
+            if(creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targets, {visualizePathStyle: {stroke: '#FF0040'}});
             }
         }
     }
