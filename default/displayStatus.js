@@ -10,6 +10,11 @@
 
 let displayStatus = {
     run: function(){
+
+        for(const key in Game.rooms){
+            console.log(key)
+        }
+
         let returnArr = []
         for(const key in Game.spawns){
             const spawn = Game.spawns[key];

@@ -7,6 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 
+// in console   Memory.neighbor = "W7N1"
 let fromTo = require('helper.fromTo')
 
 let roleHarvester = {
@@ -27,8 +28,17 @@ let roleHarvester = {
         // find source transfer to spawn, extension, container
         // when harvesting < 5, spawn and extension only
         // find closest target
+
+
+        if(creep.room.name == Memory.neighbor){
+
+        }
+
         if(creep.memory.harvesting) {
-            fromTo.harvestFromSource(creep)
+            if(creep.room.name == Memory.neighbor){
+                fromTo.harvestFromSource(creep)
+            }
+            
         } else {
             let targetArr = ["extension", "spawn", "tower"];
             if(howManyHarvester>5){

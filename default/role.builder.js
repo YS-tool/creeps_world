@@ -8,7 +8,7 @@
  */
 let roleUpgrader = require('role.upgrader');
 let rolecleanUp = require('role.cleanUp');
-let fromTo = require('fromTo');
+let fromTo = require('helper.fromTo');
 
 let roleBuilder = {
 

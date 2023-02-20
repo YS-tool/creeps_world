@@ -30,7 +30,7 @@ let spawnNew = {
 
         if(spawn.room.energyAvailable >=500 && spawn.room.energyCapacityAvailable == 550 ){
             return spawn.spawnCreep( [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE], role +"-"+ num,{
-                memory:{role:role}
+                memory:{role:role, home:spawn.room.name}
             } );
         }else if (spawn.room.energyAvailable>=300 && spawn.room.energyCapacityAvailable <550){
             let a= spawn.spawnCreep( [WORK,WORK,CARRY,MOVE], role +"-"+ num,{

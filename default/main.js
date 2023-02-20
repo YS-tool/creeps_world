@@ -13,6 +13,13 @@ let tick = 0;
 // Memory.creepIndex = 0
 
 module.exports.loop = function () {
+
+    // var exit = Game.creeps["upgrader-64"].room.findExitTo('W7N1');
+    // // move to exit
+    // Game.creeps["upgrader-64"].moveTo(new RoomPosition(47, 36, 'W7N1'))
+
+
+    
     // respone new creep section
     if(tick>30){
         for(const key in Game.spawns){
