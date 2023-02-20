@@ -1,2 +1,4 @@
 node_modules/
 .sync
+package.json
+package-lock.json
