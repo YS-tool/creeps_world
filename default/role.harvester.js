@@ -7,6 +7,8 @@
  * mod.thing == 'a thing'; // true
  */
 
+let fromTo = require('fromTo')
+
 let roleHarvester = {
 
     /** @param {Creep} creep **/
@@ -26,6 +28,9 @@ let roleHarvester = {
         // when harvesting < 5, spawn and extension only
         // find closest target
         if(creep.memory.harvesting) {
+
+            // fromTo.harvestFromSource(creep)
+
             let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
             if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
@@ -33,6 +38,9 @@ let roleHarvester = {
         } else {
             let targets;
             if(howManyHarvester<5){
+                //------------------------
+                // var targetNames == [extension, spawn]
+                // fromTo.transferTo(creep, targetNames)
                 targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || 
@@ -40,7 +48,11 @@ let roleHarvester = {
                             structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                     }
                 });
+                //-----------------------
             }else{
+                //--------------------------
+                // var targetNames == [extension, spawn, container]
+                // fromTo.transferTo(creep, targetNames)
                 targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || 
@@ -49,6 +61,7 @@ let roleHarvester = {
                             structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                     }
                 });  
+                // -------------------
             }
             if(creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(targets, {visualizePathStyle: {stroke: '#FF0040'}});

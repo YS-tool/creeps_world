@@ -38,6 +38,10 @@ let rolecleanUp = {
             }
         }
         else {
+
+            // let targetArr = ["extension", spawn]
+            // fromTo.transferTo(creep, targetArr)
+            // -------------------------
             let targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
@@ -50,6 +54,7 @@ let rolecleanUp = {
                     creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#FF0040'}});
                 }
             }
+            //---------------------------
         }
     }
 };

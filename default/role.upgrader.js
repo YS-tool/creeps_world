@@ -33,6 +33,8 @@ let roleUpgrader = {
             }
         }else {
             if(Memory.containerUnlocked){
+                // if(fromTo.withdrawFromContainer(creep)){
+                //----------------------------
                 let container = creep.room.find(FIND_STRUCTURES,{
                     filter:(structure)=>{
                         return (structure.structureType == STRUCTURE_CONTAINER && 
@@ -44,7 +46,9 @@ let roleUpgrader = {
                         creep.moveTo(container[0]);
                     }
                 }
+                // ---------------------
             }else{
+                // fromTo.harvestFromSource(creep)
                 roleHarvester.run(creep);
             }
         }

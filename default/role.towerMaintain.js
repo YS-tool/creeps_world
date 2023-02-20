@@ -24,6 +24,8 @@ var maintainTower = {
                 creep.moveTo(tower, {visualizePathStyle: {stroke: '#FF0040'}});
             }
         } else {
+            // if(fromTo.withdrawFromContainer(creep)){
+            //-------------------------------------------------
             let container = creep.room.find(FIND_STRUCTURES,{
                 filter:(structure)=>{
                     return (structure.structureType == STRUCTURE_CONTAINER && 
@@ -33,7 +35,9 @@ var maintainTower = {
                 if(creep.withdraw(container[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(container[0]);
                 }
+            // ------------------------------------------------
             }else {
+                // fromTo.harvestFromSource(creep)
                 let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
                 if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
