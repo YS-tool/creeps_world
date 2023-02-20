@@ -8,6 +8,7 @@
  */
 let roleHarvester = require('role.harvester');
 let towerMaintain = require('role.towerMaintain');
+let fromTo = require('fromTo');
 
 let rolecleanUp = {
 
@@ -16,6 +17,7 @@ let rolecleanUp = {
         let towerList = getTowerList(creep)
 
         if (towerList.length>0){
+            // console.log("towermaintain")
             towerMaintain.run(creep, towerList[0])
             // console.log("going to add power to tower")
         } else if(creep.store.getFreeCapacity() > 0) {
@@ -38,23 +40,8 @@ let rolecleanUp = {
             }
         }
         else {
-
-            // let targetArr = ["extension", spawn]
-            // fromTo.transferTo(creep, targetArr)
-            // -------------------------
-            let targets = creep.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
-                            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-                    }
-            });
-            // console.log(targets)
-            if(targets.length > 0) {
-                if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#FF0040'}});
-                }
-            }
-            //---------------------------
+            let targetArr = ["extension", "spawn"]
+            fromTo.transferTo(creep, targetArr)
         }
     }
 };

@@ -36,24 +36,8 @@ let roleBuilder = {
                     creep.moveTo(targets, {visualizePathStyle: {stroke: '#FF0040'}});
                 }
             } else {
-                //-------------------------
-                let container = creep.room.find(FIND_STRUCTURES,{
-                    filter:(structure)=>{
-                        return (structure.structureType == STRUCTURE_CONTAINER && 
-                            structure.store.getUsedCapacity()>0)
-                    }})
-                if(container.length>0){
-                    if(creep.withdraw(container[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(container[0]);
-                    }
-                    //--------------------------
-                // if(fromTo.withdrawFromContainer(creep)){
-                }else {
-                    // fromTo.harvestFromSource(creep)
-                    let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
-                    if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
-                    }
+                if(!fromTo.withdrawFromContainer(creep)){
+                    fromTo.harvestFromSource(creep)
                 }
             }
         }else{
@@ -64,8 +48,8 @@ let roleBuilder = {
                     creep.memory.tempJob = "upgrade"
                 }
             }
-            
             if (creep.memory.tempJob == "harvest"){
+                // console.log("tempjob harvest")
                 rolecleanUp.run(creep)
             }else if(creep.memory.tempJob == "upgrade"){
                 roleUpgrader.run(creep)

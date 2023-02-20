@@ -14,7 +14,7 @@ let tick = 0;
 
 module.exports.loop = function () {
     // respone new creep section
-    if(tick>100){
+    if(tick>30){
         for(const key in Game.spawns){
             const spawn = Game.spawns[key];
             if(!spawn.room.controller || !spawn.room.controller.my){
@@ -27,16 +27,12 @@ module.exports.loop = function () {
             }
         }
     }
-
     // tower behavior
-
     for(let name in Game.structures){
         if(Game.structures[name].structureType==STRUCTURE_TOWER){
             tower.run(Game.structures[name])
         }
     }
-
-
     // main section
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];

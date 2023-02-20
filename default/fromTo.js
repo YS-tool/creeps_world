@@ -7,7 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 
-var goTo = {
+var fromTo = {
     
     harvestFromSource : function(creep){
         let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
@@ -17,6 +17,7 @@ var goTo = {
     },
 
     withdrawFromContainer: function(creep){
+        if(!Memory.containerUnlocked){return false}
         let container = creep.room.find(FIND_STRUCTURES,{
             filter:(structure)=>{
                 return (structure.structureType == STRUCTURE_CONTAINER && 
@@ -33,24 +34,25 @@ var goTo = {
     },
 
     transferTo: function(creep, targetNames){
-
         var targetArr = []
-
         for(let structureName in targetNames){
-            targetArr.concat( creep.room.find(FIND_STRUCTURES, {
+            let tempArr = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == structureName) &&
+                    return (structure.structureType == targetNames[structureName]) &&
                         structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                 }
-            }))
+            })
+            if(tempArr.length>0){
+                targetArr = targetArr.concat(tempArr)
+            }
         }
         if(targetArr.length > 0) {
-            if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#FF0040'}});
+            if(creep.transfer(targetArr[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targetArr[0], {visualizePathStyle: {stroke: '#FF0040'}});
             }
         }
     }
     
 }
 
-module.exports = goTo;
+module.exports = fromTo;
