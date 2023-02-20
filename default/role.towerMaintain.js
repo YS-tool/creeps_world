@@ -6,38 +6,26 @@
  * var mod = require('role.towerMaintain');
  * mod.thing == 'a thing'; // true
  */
-
+let fromTo = require('fromTo');
 var maintainTower = {
     run : function(creep, tower){
 
-        if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
+        if(creep.memory.towerMaintain && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.towerMaintain = false;
             creep.say('🔄 harvest');
         }
-        if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
+        if(!creep.memory.towerMaintain && creep.store.getFreeCapacity() == 0) {
             creep.memory.towerMaintain = true;
             creep.say('🚧 build');
         }
 
         if(creep.memory.towerMaintain) {
-            if(creep.transfer(tower) == ERR_NOT_IN_RANGE) {
+            if(creep.transfer(tower, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(tower, {visualizePathStyle: {stroke: '#FF0040'}});
             }
         } else {
-            let container = creep.room.find(FIND_STRUCTURES,{
-                filter:(structure)=>{
-                    return (structure.structureType == STRUCTURE_CONTAINER && 
-                        structure.store.getUsedCapacity()>0)
-                }})
-            if(container.length>0){
-                if(creep.withdraw(container[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(container[0]);
-                }
-            }else {
-                let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
-                if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
-                }
+            if(!fromTo.withdrawFromContainer(creep)){
+                fromTo.harvestFromSource(creep)
             }
         }
         

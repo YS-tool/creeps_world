@@ -7,6 +7,8 @@
  * mod.thing == 'a thing'; // true
  */
 
+let fromTo = require('fromTo')
+
 let roleHarvester = {
 
     /** @param {Creep} creep **/
@@ -26,33 +28,13 @@ let roleHarvester = {
         // when harvesting < 5, spawn and extension only
         // find closest target
         if(creep.memory.harvesting) {
-            let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
-            if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
-            }
+            fromTo.harvestFromSource(creep)
         } else {
-            let targets;
-            if(howManyHarvester<5){
-                targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_EXTENSION || 
-                                structure.structureType == STRUCTURE_SPAWN ) &&
-                            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-                    }
-                });
-            }else{
-                targets = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_EXTENSION || 
-                                structure.structureType == STRUCTURE_SPAWN ||
-                                 structure.structureType == STRUCTURE_CONTAINER) &&
-                            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-                    }
-                });  
+            let targetArr = ["extension", "spawn"];
+            if(howManyHarvester>5){
+                targetArr.push("container")
             }
-            if(creep.transfer(targets, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets, {visualizePathStyle: {stroke: '#FF0040'}});
-            }
+            fromTo.transferTo(creep, targetArr)
         }
     }
 };
