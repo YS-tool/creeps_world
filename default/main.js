@@ -5,6 +5,7 @@ let spawnNew = require('spawnNew')
 let gc = require('helper.gc')
 let showLog = require('displayStatus')
 let tower = require('tower')
+let longHarvester = require('role.longDistanceHarvester')
 
 var creepStatus = showLog.run()
 
@@ -13,13 +14,6 @@ let tick = 0;
 // Memory.creepIndex = 0
 
 module.exports.loop = function () {
-
-    // var exit = Game.creeps["upgrader-64"].room.findExitTo('W7N1');
-    // // move to exit
-    // Game.creeps["upgrader-64"].moveTo(new RoomPosition(47, 36, 'W7N1'))
-
-
-    
     // respone new creep section
     if(tick>30){
         for(const key in Game.spawns){
@@ -27,9 +21,10 @@ module.exports.loop = function () {
             if(!spawn.room.controller || !spawn.room.controller.my){
                 continue;
             }
-            if(spawnNew.run(spawn, Memory.creepIndex,creepStatus)==0){
+            if(spawnNew.run(spawn, Memory.creepIndex, creepStatus)==0){
                 Memory.creepIndex = Memory.creepIndex+1
                 tick = 0;
+                creepStatus = showLog.updateStatusArr()
                 gc.removeDeadCreep()
             }
         }
@@ -43,16 +38,21 @@ module.exports.loop = function () {
     // main section
     for(let name in Game.creeps) {
         let creep = Game.creeps[name];
+        // creep.memory.home = creep.room.name
         if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep, creepStatus[0]);
         }
         if(creep.memory.role == 'upgrader') {
-            // creep.memory.role = 'harvester'
+            // creep.memory.role = 'longHarvester'
             roleUpgrader.run(creep);
         }
         if(creep.memory.role == 'builder') {
             // creep.memory.role = 'upgrader'
             roleBuilder.run(creep);
+        }
+        if(creep.memory.role == 'longHarvester') {
+            // creep.memory.role = 'upgrader'
+            longHarvester.run(creep);
         }
     }
 

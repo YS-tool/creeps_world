@@ -51,6 +51,11 @@ var fromTo = {
                 creep.moveTo(targetArr[0], {visualizePathStyle: {stroke: '#FF0040'}});
             }
         }
+    },
+
+    toRoom: function(creep, roomName){
+        var exit = creep.room.findExitTo(roomName);
+        creep.moveTo(creep.pos.findClosestByRange(exit));
     }
     
 }

@@ -29,22 +29,22 @@ let roleHarvester = {
         // when harvesting < 5, spawn and extension only
         // find closest target
 
-
-        if(creep.room.name == Memory.neighbor){
-
-        }
-
         if(creep.memory.harvesting) {
             if(creep.room.name == Memory.neighbor){
                 fromTo.harvestFromSource(creep)
+            }else{
+                fromTo.toRoom(creep, Memory.neighbor)
             }
-            
         } else {
-            let targetArr = ["extension", "spawn", "tower"];
-            if(howManyHarvester>5){
-                targetArr.push("container")
+            if(creep.room.name == creep.memory.home){
+                let targetArr = ["extension", "spawn", "tower"];
+                if(howManyHarvester>5){
+                    targetArr.push("container")
+                }
+                fromTo.transferTo(creep, targetArr)
+            }else{
+                fromTo.toRoom(creep, creep.memory.home)
             }
-            fromTo.transferTo(creep, targetArr)
         }
     }
 };

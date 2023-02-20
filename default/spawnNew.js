@@ -9,7 +9,7 @@
  
  
 let spawnNew = {
-    run: function(spawn, num, creepStatus){
+    run: function(spawn, num){
         // console.log("inside spawnNew")
         // console.log(num)
         let role;
@@ -18,10 +18,14 @@ let spawnNew = {
         //     numOfRole = 2;
         // }
 
-        if(creepStatus[0]<5){
+        if(Memory.harvester<6){
             role = "harvester"
         }else if(num%3==0){
-            role = "harvester"
+            if(Memory.harvester>=6){
+                role = "longHarvester"
+            }else{
+                role = "harvester"
+            }
         }else if (num%3==1){
             role = "upgrader"
         }else{
