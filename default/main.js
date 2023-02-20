@@ -4,6 +4,7 @@ let roleBuilder = require('role.builder');
 let spawnNew = require('spawnNew')
 let gc = require('GC')
 let showLog = require('displayStatus')
+let tower = require('tower')
 
 var creepStatus = showLog.run()
 
@@ -33,6 +34,14 @@ module.exports.loop = function () {
                 tick = 0;
                 gc.removeDeadCreep()
             }
+        }
+    }
+
+    // tower behavior
+
+    for(let name in Game.structures){
+        if(Game.structures[name].structureType==STRUCTURE_TOWER){
+            tower.run(Game.structures[name])
         }
     }
 
