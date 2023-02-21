@@ -6,7 +6,7 @@
  * var mod = require('role.towerMaintain');
  * mod.thing == 'a thing'; // true
  */
-let fromTo = require('fromTo');
+let fromTo = require('helper.fromTo');
 var maintainTower = {
     run : function(creep, tower){
 

@@ -6,7 +6,7 @@
  * let mod = require('role.upgrader');
  * mod.thing == 'a thing'; // true
  */
-let fromTo = require('fromTo');
+let fromTo = require('helper.fromTo');
 
 let roleUpgrader = {
 
