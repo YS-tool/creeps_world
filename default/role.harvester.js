@@ -8,6 +8,7 @@
  */
 
 let fromTo = require('helper.fromTo')
+let longHarvester = require('role.longDistanceHarvester')
 
 let roleHarvester = {
 
@@ -24,18 +25,23 @@ let roleHarvester = {
 	        creep.say('transfer');
 	    }
         
-        // find source transfer to spawn, extension, container
-        // when harvesting < 5, spawn and extension only
-        // find closest target
-        if(creep.memory.harvesting) {
-            fromTo.harvestFromSource(creep)
-        } else {
-            let targetArr = ["extension", "spawn", "tower"];
-            if(howManyHarvester>5){
-                targetArr.push("container")
+        if(creep.room.name != creep.room.home){
+            longHarvester.run(creep);
+        }else{
+            // find source transfer to spawn, extension, container
+            // when harvesting < 5, spawn and extension only
+            // find closest target
+            if(creep.memory.harvesting) {
+                fromTo.harvestFromSource(creep)
+            } else {
+                let targetArr = ["extension", "spawn", "tower"];
+                if(howManyHarvester>5){
+                    targetArr.push("container")
+                }
+                fromTo.transferTo(creep, targetArr)
             }
-            fromTo.transferTo(creep, targetArr)
         }
+
     }
 };
 
