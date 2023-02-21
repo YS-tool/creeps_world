@@ -15,7 +15,7 @@ let tick = 0;
 
 module.exports.loop = function () {
     // respone new creep section
-    if(tick>30){
+    if(tick == 0 || tick>100){
         for(const key in Game.spawns){
             const spawn = Game.spawns[key];
             if(!spawn.room.controller || !spawn.room.controller.my){
@@ -23,7 +23,7 @@ module.exports.loop = function () {
             }
             if(spawnNew.run(spawn, Memory.creepIndex, creepStatus)==0){
                 Memory.creepIndex = Memory.creepIndex+1
-                tick = 0;
+                tick = 1;
                 creepStatus = showLog.updateStatusArr()
                 gc.removeDeadCreep()
             }

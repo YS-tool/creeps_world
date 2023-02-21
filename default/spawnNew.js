@@ -32,19 +32,33 @@ let spawnNew = {
             role = "builder"
         }
 
-        if(spawn.room.energyAvailable >=500 && spawn.room.energyCapacityAvailable == 550 ){
-            return spawn.spawnCreep( [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE], role +"-"+ num,{
-                memory:{role:role, home:spawn.room.name}
-            } );
-        }else if (spawn.room.energyAvailable>=300 && spawn.room.energyCapacityAvailable <550){
-            let a= spawn.spawnCreep( [WORK,WORK,CARRY,MOVE], role +"-"+ num,{
-                memory:{role:role}
-            } );
-            return a;
-        }else{
-            return -1;
+        let roleArr = generateWorkLoad(spawn.room.energyAvailable)
+        
+        if(spawn.spawnCreep( roleArr, role +"-"+ num, {memory:{role:role, home:spawn.room.name}})==0){
+            console.log("generate a creep " + roleArr)
+            return 0;
         }
+        return -1;
     }
 };
+
+function generateWorkLoad(energy){
+    // create a balanced body as big as possible with the given energy
+    var numberOfParts = Math.floor(energy / 200);
+    // make sure the creep is not too big (more than 50 parts)
+    numberOfParts = Math.min(numberOfParts, Math.floor(50 / 3));
+    var body = [];
+    for (let i = 0; i < numberOfParts; i++) {
+        body.push(WORK);
+    }
+    for (let i = 0; i < numberOfParts; i++) {
+        body.push(CARRY);
+    }
+    for (let i = 0; i < numberOfParts; i++) {
+        body.push(MOVE);
+    }
+    return body
+
+}
 
 module.exports = spawnNew;

@@ -10,7 +10,9 @@
 var fromTo = {
     
     harvestFromSource : function(creep){
-        let sources = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
+        let sourcesInRoom = creep.room.find(FIND_SOURCES_ACTIVE)
+        let sources = creep.pos.findClosestByPath(sourcesInRoom)
+
         if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
             creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
         }
@@ -55,7 +57,8 @@ var fromTo = {
 
     toRoom: function(creep, roomName){
         var exit = creep.room.findExitTo(roomName);
-        creep.moveTo(creep.pos.findClosestByRange(exit));
+        let toExit = creep.pos.findClosestByRange(exit);
+        creep.moveTo(toExit);
     }
     
 }
