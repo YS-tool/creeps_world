@@ -13,9 +13,19 @@ var fromTo = {
         let sourcesInRoom = creep.room.find(FIND_SOURCES_ACTIVE)
         let sources = creep.pos.findClosestByPath(sourcesInRoom)
 
-        if(creep.harvest(sources) == ERR_NOT_IN_RANGE) {
+
+        var harvestReturnValue = creep.harvest(sources);
+
+        // if(creep.name == "upgrader-85"){
+        //   console.log("upgrader 85")
+        //   console.log(harvestReturnValue)
+        // }
+
+        if(harvestReturnValue == ERR_NOT_IN_RANGE) {
             creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
         }
+
+        return harvestReturnValue;
     },
 
     withdrawFromContainer: function(creep){

@@ -13,10 +13,17 @@ var tower = {
             filter: (structure) => structure.hits < structure.hitsMax
         });
 
+        var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+
         if(closestDamagedStructure) {
             tower.repair(closestDamagedStructure);
         }
-        // console.log("inside tower")
+
+        // if one is found...
+        if (target != undefined) {
+            // ...FIRE!
+            tower.attack(target);
+        }
     }
 }
 

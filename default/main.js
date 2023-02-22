@@ -15,7 +15,7 @@ let tick = 0;
 
 module.exports.loop = function () {
     // respone new creep section
-    if(tick == 0 || tick>100){
+    if(tick == 0 || tick>80){
         for(const key in Game.spawns){
             const spawn = Game.spawns[key];
             if(!spawn.room.controller || !spawn.room.controller.my){
@@ -47,7 +47,7 @@ module.exports.loop = function () {
             roleUpgrader.run(creep);
         }
         if(creep.memory.role == 'builder') {
-            // creep.memory.role = 'upgrader'
+            // creep.memory.role = 'harvester'
             roleBuilder.run(creep);
         }
         if(creep.memory.role == 'longHarvester') {
