@@ -34,7 +34,7 @@ let spawnNew = {
 
         let roleArr = generateWorkLoad(spawn.room.energyAvailable)
         
-        if(spawn.spawnCreep( roleArr, role +"-"+ num, {memory:{role:role, home:spawn.room.name}})==0){
+        if(spawn.room.energyAvailable>600&&spawn.spawnCreep( roleArr, role +"-"+ num, {memory:{role:role, home:spawn.room.name}})==0){
             console.log("generate a creep " + roleArr)
             return 0;
         }

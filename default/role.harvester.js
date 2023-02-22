@@ -15,33 +15,32 @@ let roleHarvester = {
     /** @param {Creep} creep **/
     run: function(creep, howManyHarvester) {
 
-        // state switch
-        if(!creep.memory.harvesting && creep.store[RESOURCE_ENERGY] == 0) {
-            creep.memory.harvesting = true;
-            creep.say('🔄 harvest');
+      // state switch
+      if(!creep.memory.harvesting && creep.store[RESOURCE_ENERGY] == 0) {
+          creep.memory.harvesting = true;
+          creep.say('🔄 harvest');
 	    }
-        if(creep.memory.harvesting && creep.store.getFreeCapacity() == 0) {
-	        creep.memory.harvesting = false;
-	        creep.say('transfer');
+      if(creep.memory.harvesting && creep.store.getFreeCapacity() == 0) {
+        creep.memory.harvesting = false;
+        creep.say('transfer');
 	    }
         
-        if(creep.room.name != creep.room.home){
-            longHarvester.run(creep);
-        }else{
-            // find source transfer to spawn, extension, container
-            // when harvesting < 5, spawn and extension only
-            // find closest target
-            if(creep.memory.harvesting) {
-                fromTo.harvestFromSource(creep)
-            } else {
-                let targetArr = ["extension", "spawn", "tower"];
-                if(howManyHarvester>5){
-                    targetArr.push("container")
-                }
-                fromTo.transferTo(creep, targetArr)
+      if(creep.room.name != creep.memory.home){
+        longHarvester.run(creep);
+      }else{
+        // find source transfer to spawn, extension, container
+        // when harvesting < 5, spawn and extension only
+        // find closest target
+        if(creep.memory.harvesting) {
+            fromTo.harvestFromSource(creep)
+        } else {
+            let targetArr = ["extension", "spawn", "tower"];
+            if(howManyHarvester>5){
+                targetArr.push("container")
             }
+            fromTo.transferTo(creep, targetArr)
         }
-
+      }
     }
 };
 
