@@ -17,8 +17,16 @@ let roleBuilder = {
 
         // rand 2 because 2 temp job
         let rand = Math.floor(Math.random() * 2);
-        let targets = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+        let targetsArr = []
 
+        for(const name in Game.rooms){
+          var sites = Game.rooms[name].find(FIND_CONSTRUCTION_SITES);
+          for(var siteName in sites){
+            targetsArr.push(sites[siteName])
+          }
+        }
+        // console.log(targetsArr)
+        var targets = targetsArr[0]
         // if target exist, do build
         // else, do temp job
         if(targets){
@@ -41,7 +49,9 @@ let roleBuilder = {
                 }
             }
         }else{
-            if(!creep.memory.tempJob){
+          if(creep.room.name != creep.memory.home){
+            fromTo.toRoom(creep, creep.memory.home)
+          }else if(!creep.memory.tempJob){
                 if(rand == 0){
                     creep.memory.tempJob = "harvest"
                 }else{
@@ -53,7 +63,7 @@ let roleBuilder = {
                 rolecleanUp.run(creep)
             }else if(creep.memory.tempJob == "upgrade"){
                 roleUpgrader.run(creep)
-            }  
+            }
         }
 	}
 };

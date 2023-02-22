@@ -18,9 +18,9 @@ module.exports.loop = function () {
     if(tick == 0 || tick>80){
         for(const key in Game.spawns){
             const spawn = Game.spawns[key];
-            if(!spawn.room.controller || !spawn.room.controller.my){
-                continue;
-            }
+            // if(!spawn.room.controller || !spawn.room.controller.my){
+            //     continue;
+            // }
             if(spawnNew.run(spawn, Memory.creepIndex, creepStatus)==0){
                 Memory.creepIndex = Memory.creepIndex+1
                 tick = 1;

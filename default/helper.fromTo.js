@@ -13,7 +13,6 @@ var fromTo = {
         let sourcesInRoom = creep.room.find(FIND_SOURCES_ACTIVE)
         let sources = creep.pos.findClosestByPath(sourcesInRoom)
 
-
         var harvestReturnValue = creep.harvest(sources);
 
         // if(creep.name == "upgrader-85"){
