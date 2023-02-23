@@ -13,7 +13,9 @@ let longHarvester = require('role.longDistanceHarvester')
 let roleHarvester = {
 
     /** @param {Creep} creep **/
-    run: function(creep, howManyHarvester) {
+    run: function(creep) {
+
+      let howManyHarvester = Memory.creepStat.harvester
 
       // state switch
       if(!creep.memory.harvesting && creep.store[RESOURCE_ENERGY] == 0) {
