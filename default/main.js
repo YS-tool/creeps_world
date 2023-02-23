@@ -5,7 +5,6 @@ let spawnNew = require('spawnNew')
 let gc = require('helper.gc')
 let displayStatus = require('displayStatus')
 let tower = require('tower')
-let longHarvester = require('role.longDistanceHarvester')
 
 
 displayStatus.run()
@@ -128,10 +127,6 @@ module.exports.loop = function () {
         if(creep.memory.role == 'builder') {
             // creep.memory.role = 'harvester'
             roleBuilder.run(creep);
-        }
-        if(creep.memory.role == 'longHarvester') {
-            // creep.memory.role = 'upgrader'
-            longHarvester.run(creep);
         }
     }
 

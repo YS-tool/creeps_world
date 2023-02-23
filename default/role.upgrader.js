@@ -24,10 +24,14 @@ let roleUpgrader = {
             creep.memory.harvesting = false;
             creep.say('upgrade');
         }
-        
         // if have container, draw energy from container
         // else, draw from source
         if(creep.memory.upgrading){
+          if(creep.room.name != creep.memory.home){
+            fromTo.toRoom(creep, creep.memory.home)
+            return;
+          }
+
             if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(creep.room.controller,{visualizePathStyle: {stroke: '#FF0040'}});
             }

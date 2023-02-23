@@ -18,14 +18,10 @@ let spawnNew = {
         //     numOfRole = 2;
         // }
 
-        if(Memory.creepStat.harvester<3){
+        if(Memory.creepStat.harvester<6){
             role = "harvester"
         }else if(num%3==0){
-            if(Memory.harvester>=6){
-                role = "longHarvester"
-            }else{
-                role = "harvester"
-            }
+            role = "harvester"
         }else if (num%3==1){
             role = "upgrader"
         }else{

@@ -32,6 +32,7 @@ let roleBuilder = {
         if(targets){
             if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
                 creep.memory.building = false;
+                delete creep.memory.longRange;
                 creep.say('🔄 harvest');
             }
             if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
