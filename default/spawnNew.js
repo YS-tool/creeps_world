@@ -18,14 +18,10 @@ let spawnNew = {
         //     numOfRole = 2;
         // }
 
-        if(Memory.harvester<6){
+        if(Memory.creepStat.harvester<6){
             role = "harvester"
         }else if(num%3==0){
-            if(Memory.harvester>=6){
-                role = "longHarvester"
-            }else{
-                role = "harvester"
-            }
+            role = "harvester"
         }else if (num%3==1){
             role = "upgrader"
         }else{
@@ -34,7 +30,7 @@ let spawnNew = {
 
         let roleArr = generateWorkLoad(spawn.room.energyAvailable)
         
-        if(spawn.room.energyAvailable>600&&spawn.spawnCreep( roleArr, role +"-"+ num, {memory:{role:role, home:spawn.room.name}})==0){
+        if(spawn.room.energyAvailable>200&&spawn.spawnCreep( roleArr, role +"-"+ num, {memory:{role:role, home:spawn.room.name}})==0){
             console.log("generate a creep " + roleArr)
             return 0;
         }

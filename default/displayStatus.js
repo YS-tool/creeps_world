@@ -14,7 +14,6 @@ let displayStatus = {
             console.log(key)
         }
 
-        let returnArr = []
         for(const key in Game.spawns){
             const spawn = Game.spawns[key];
             let roomName = spawn.room.name;
@@ -36,54 +35,37 @@ let displayStatus = {
             }
         }
 
-        let creepStatus = updateCreepStatus()
-
-        console.log("there are " + creepStatus[0] + " harvester\n" + 
-                    "there are " + creepStatus[1] + " upgader\n" +
-                    "there are " + creepStatus[2] + " builder\n" +
-                    "there are " + creepStatus[3] + " longHarvester\n")
-
-        return creepStatus;
+        this.updateStatusArr()
     },
 
     updateStatusArr: function(){
-        return updateCreepStatus()
+      let har = 0;
+      let upg = 0;
+      let bud = 0;
+      let longH = 0;
+      for(let name in Game.creeps) {
+          let creep = Game.creeps[name];
+          if(creep.memory.role == 'harvester') {
+              har++
+          }
+          if(creep.memory.role == 'upgrader') {
+              upg++
+          }
+          if(creep.memory.role == 'builder') {
+              bud++;
+          }
+          if(creep.memory.role == 'longHarvester') {
+              longH++;
+          }
+      }
+
+     Memory.creepStat = {harvester : har, upgrader : upg, builder : bud, longHarvester : longH}
+  
+      
+      
+      
+      
     }
-}
-
-function updateCreepStatus(){
-    let returnArr = []
-    let har = 0;
-    let upg = 0;
-    let bud = 0;
-    let longH = 0;
-    for(let name in Game.creeps) {
-        let creep = Game.creeps[name];
-        if(creep.memory.role == 'harvester') {
-            har++
-        }
-        if(creep.memory.role == 'upgrader') {
-            upg++
-        }
-        if(creep.memory.role == 'builder') {
-            bud++;
-        }
-        if(creep.memory.role == 'longHarvester') {
-            longH++;
-        }
-    }
-
-    Memory.harvester = har;
-    Memory.upgrader = upg;
-    Memory.builder = bud;
-    Memory.longHarvester = longH
-
-    returnArr.push(har)
-    returnArr.push(upg)
-    returnArr.push(bud)
-    returnArr.push(longH)
-
-    return returnArr;
 }
 
 module.exports = displayStatus

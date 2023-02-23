@@ -10,17 +10,24 @@
 var fromTo = {
     
     harvestFromSource : function(creep){
+      // if it is a long range, and in home; go out
+        if(creep.memory.longRange && creep.memory.home == creep.room.name){
+          this.toRoom(creep, Memory.neighbor);
+          return;
+        }
+
         let sourcesInRoom = creep.room.find(FIND_SOURCES_ACTIVE)
         let sources = creep.pos.findClosestByPath(sourcesInRoom)
-
         var harvestReturnValue = creep.harvest(sources);
 
-        // if(creep.name == "upgrader-85"){
-        //   console.log("upgrader 85")
-        //   console.log(harvestReturnValue)
-        // }
+        if(harvestReturnValue == ERR_INVALID_TARGET){
+          if(creep.memory.home == creep.room.name){
+            creep.memory.longRange = true;
+            // FUTURE: when neighbor is more than one
+            // creep.memory.target = one of the neighbor
+          }
 
-        if(harvestReturnValue == ERR_NOT_IN_RANGE) {
+        }else if(harvestReturnValue == ERR_NOT_IN_RANGE) {
             creep.moveTo(sources, {visualizePathStyle: {stroke: '#FFFFFF'}});
         }
 
@@ -45,6 +52,11 @@ var fromTo = {
     },
 
     transferTo: function(creep, targetNames){
+
+      if(creep.memory.home != creep.room.name){
+        this.toRoom(creep, creep.memory.home)
+        return;
+      }
         var targetArr = []
         for(let structureName in targetNames){
             let tempArr = creep.room.find(FIND_MY_STRUCTURES, {
@@ -58,9 +70,12 @@ var fromTo = {
             }
         }
         if(targetArr.length > 0) {
-            if(creep.transfer(targetArr[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targetArr[0], {visualizePathStyle: {stroke: '#FF0040'}});
-            }
+          let transferRes = creep.transfer(targetArr[0], RESOURCE_ENERGY);
+          if(transferRes == 0){
+            delete creep.memory.longRange;
+          }else if( transferRes== ERR_NOT_IN_RANGE) {
+              creep.moveTo(targetArr[0], {visualizePathStyle: {stroke: '#FF0040'}});
+          }
         }
     },
 
