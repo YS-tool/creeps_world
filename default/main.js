@@ -2,7 +2,7 @@ let roleHarvester = require('role.harvester');
 let roleUpgrader = require('role.upgrader');
 let roleBuilder = require('role.builder');
 let spawnNew = require('spawnNew')
-let gc = require('helper.gc')
+
 let displayStatus = require('displayStatus')
 let tower = require('tower')
 
@@ -77,22 +77,7 @@ module.exports.loop = function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // respone new creep section
+    // respone new creep
     if(tick == 0 || tick>80){
         for(const key in Game.spawns){
             const spawn = Game.spawns[key];
@@ -100,10 +85,7 @@ module.exports.loop = function () {
             //     continue;
             // }
             if(spawnNew.run(spawn, Memory.creepIndex)==0){
-                Memory.creepIndex = Memory.creepIndex+1
                 tick = 1;
-                displayStatus.updateStatusArr()
-                gc.removeDeadCreep()
             }
         }
     }

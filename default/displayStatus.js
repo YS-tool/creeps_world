@@ -39,12 +39,22 @@ let displayStatus = {
     },
 
     updateStatusArr: function(){
+
+      Memory.creepSizeStat = {}
       let har = 0;
       let upg = 0;
       let bud = 0;
-      let longH = 0;
       for(let name in Game.creeps) {
           let creep = Game.creeps[name];
+
+          var size = creep.hitsMax.toString();
+
+          if(Memory.creepSizeStat[size]){
+            Memory.creepSizeStat[size]++
+          }else{
+            Memory.creepSizeStat[size] =1;
+          }
+
           if(creep.memory.role == 'harvester') {
               har++
           }
@@ -54,17 +64,9 @@ let displayStatus = {
           if(creep.memory.role == 'builder') {
               bud++;
           }
-          if(creep.memory.role == 'longHarvester') {
-              longH++;
-          }
       }
 
-     Memory.creepStat = {harvester : har, upgrader : upg, builder : bud, longHarvester : longH}
-  
-      
-      
-      
-      
+     Memory.creepRoleStat = {harvester : har, upgrader : upg, builder : bud}
     }
 }
 

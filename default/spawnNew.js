@@ -6,7 +6,8 @@
  * let mod = require('spawnNew');
  * mod.thing == 'a thing'; // true
  */
- 
+let displayStatus = require('displayStatus')
+let gc = require('helper.gc')
  
 let spawnNew = {
     run: function(spawn, num){
@@ -18,7 +19,7 @@ let spawnNew = {
         //     numOfRole = 2;
         // }
 
-        if(Memory.creepStat.harvester<6){
+        if(Memory.creepRoleStat.harvester<6){
             role = "harvester"
         }else if(num%3==0){
             role = "harvester"
@@ -32,6 +33,9 @@ let spawnNew = {
         
         if(spawn.room.energyAvailable>200&&spawn.spawnCreep( roleArr, role +"-"+ num, {memory:{role:role, home:spawn.room.name}})==0){
             console.log("generate a creep " + roleArr)
+            Memory.creepIndex = Memory.creepIndex+1
+            gc.removeDeadCreep()
+            displayStatus.updateStatusArr()
             return 0;
         }
         return -1;
