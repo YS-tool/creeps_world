@@ -54,7 +54,6 @@ let displayStatus = {
           }else{
             Memory.creepSizeStat[size] =1;
           }
-
           if(creep.memory.role == 'harvester') {
               har++
           }
@@ -71,3 +70,4 @@ let displayStatus = {
 }
 
 module.exports = displayStatus
+
